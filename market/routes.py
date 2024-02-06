@@ -1,5 +1,6 @@
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
+from werkzeug import Response
 
 from market import app, db
 from market.forms import LoginForm, PurchaseItemForm, RegisterForm, SellItemForm
@@ -8,13 +9,13 @@ from market.models import Item, User
 
 @app.route("/")
 @app.route("/home")
-def home_page():
+def home_page() -> str:
     return render_template("home.html")
 
 
 @app.route("/market", methods=["GET", "POST"])
 @login_required
-def market_page():
+def market_page() -> Response | str:
     purchase_form = PurchaseItemForm()
     selling_form = SellItemForm()
     if request.method == "POST":
@@ -25,12 +26,14 @@ def market_page():
             if current_user.can_purchase(p_item_object):
                 p_item_object.buy(current_user)
                 flash(
-                    f"Congratulations! You purchased {p_item_object.name} for {p_item_object.price}$",
+                    f"Congratulations! You purchased "
+                    f"{p_item_object.name} for {p_item_object.price}$",
                     category="success",
                 )
             else:
                 flash(
-                    f"Unfortunately, you don't have enough money to purchase {p_item_object.name}!",
+                    f"Unfortunately, you don't have enough "
+                    f"money to purchase {p_item_object.name}!",
                     category="danger",
                 )
         # Sell Item Logic
@@ -64,7 +67,7 @@ def market_page():
 
 
 @app.route("/register", methods=["GET", "POST"])
-def register_page():
+def register_page() -> Response | str:
     form = RegisterForm()
     if form.validate_on_submit():
         user_to_create = User(
@@ -76,7 +79,8 @@ def register_page():
         db.session.commit()
         login_user(user_to_create)
         flash(
-            f"Account created successfully! You are now logged in as {user_to_create.username}",
+            f"Account created successfully! You are now "
+            f"logged in as {user_to_create.username}",
             category="success",
         )
         return redirect(url_for("market_page"))
@@ -90,7 +94,7 @@ def register_page():
 
 
 @app.route("/login", methods=["GET", "POST"])
-def login_page():
+def login_page() -> Response | str:
     form = LoginForm()
     if form.validate_on_submit():
         attempted_user = User.query.filter_by(username=form.username.data).first()
@@ -113,7 +117,8 @@ def login_page():
 
 
 @app.route("/logout")
-def logout_page():
+def logout_page() -> Response:
     logout_user()
     flash("You have been logged out!", category="info")
+
     return redirect(url_for("home_page"))
