@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "tests-for-flask"
+version = "0.1.0"
+description = ""
+authors = ["FlameInBrainSerj <Krivosheev.sergey.01@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^3.0.2"
+flask-bcrypt = "^1.0.1"
+flask-login = "^0.6.3"
+flask-wtf = "^1.2.1"
+wtforms = "^3.1.2"
+pydantic = "^2.6.1"
+flask-sqlalchemy = "^3.1.1"
+email-validator = "^2.1.0.post1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.1.1"
+flake8 = "^7.0.0"
+isort = "^5.13.2"
+mypy = "^1.8.0"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.0.0"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
