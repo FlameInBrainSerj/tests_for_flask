@@ -1,4 +1,5 @@
 quality-check: isort black flake8 mypy
+final-run: quality-check test-cov
 
 poetry:
 	pip install poetry
