@@ -85,6 +85,7 @@ def register_page() -> Response | str:
         )
         return redirect(url_for("market_page"))
     if form.errors != {}:  # If there are not errors from the validations
+        # raise Exception(form.errors) # for debug
         for err_msg in form.errors.values():
             flash(
                 f"There was an error with creating a user: {err_msg}", category="danger"

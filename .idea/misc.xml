@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="Black">
+    <option name="enabledOnSave" value="true" />
+    <option name="sdkUUID" value="61bb9492-f32c-4050-aaa1-c6b0240f1434" />
+  </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (tests_for_flask)" project-jdk-type="Python SDK" />
 </project>
