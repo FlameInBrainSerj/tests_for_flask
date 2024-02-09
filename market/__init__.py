@@ -17,4 +17,5 @@ login_manager.login_message_category = "info"
 
 # They must be here!!! (cannot replace import)
 from market import routes
+
 from .models import Item, User
